@@ -1,24 +1,21 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import { Container } from 'react-bootstrap';
+import Characters from './Components/characters';
+import Search from './Components/Search';
 import './App.css';
 
 function App() {
+  const [search, setSearch] = useState();
+
+  const handlerSearch = (value) => {
+    setSearch(value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Search handlerSearch={handlerSearch} />
+      <Characters search={search} />
+    </Container>
   );
 }
 
