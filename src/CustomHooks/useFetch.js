@@ -24,7 +24,6 @@ export const useFetch = (endpoint, inicialState = {}) => {
 
   useEffect(() => {
     fetchData();
-  }, [endpoint]);
-
+  }, [endpoint]); // eslint-disable-line react-hooks/exhaustive-deps
   return [data, fetching, error];
 };

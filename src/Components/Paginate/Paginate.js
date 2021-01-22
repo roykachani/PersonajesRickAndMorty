@@ -4,7 +4,6 @@ const Paginate = ({ prev, next, handlerPage }) => {
   const handlerNext = () => {
     /*aca separo el endpoin que envia next, mediante .split(?) y lo destructuro*/
     const [, query] = next.split('?');
-    console.log(query);
     handlerPage(query);
   };
 

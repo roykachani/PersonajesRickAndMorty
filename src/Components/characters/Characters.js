@@ -7,24 +7,41 @@ import Character from './Character';
 
 //componente de logica (peticion + map)
 const BASE_ENDPOINT = 'character';
-const Characters = ({ search }) => {
-  const [url, setUrl] = useState(BASE_ENDPOINT);
+const Characters = ({ search, addFavorites }) => {
+  const inicialState = {
+    id: '',
+    name: '',
+    image: '',
+    fav: false,
+  };
 
+  const [url, setUrl] = useState(BASE_ENDPOINT);
+  const [favCharacter, setFavCharacter] = useState(inicialState);
   //hoock para setear busqueda
   useEffect(() => {
-    console.log('busca', search);
     const newUrl = !search
       ? `${BASE_ENDPOINT}`
       : `${BASE_ENDPOINT}?name=${search}`;
     setUrl(newUrl);
   }, [search]);
 
-  const [data, fetching, error] = useFetch(url); //CUSTOM HOOK
+  const [data, fetching] = useFetch(url); //CUSTOM HOOK
   const { info, results: characters } = data;
 
   //funcion de paginacion
   const handlerPage = (newUrl) => {
     setUrl(`${BASE_ENDPOINT}?${newUrl}`);
+  };
+
+  const handlerFavorites = (id, name, image) => {
+    setFavCharacter({
+      id: id,
+      name: name,
+      image: image,
+      fav: true,
+    });
+
+    addFavorites(favCharacter);
   };
 
   return (
@@ -35,7 +52,11 @@ const Characters = ({ search }) => {
           <Loading />
         ) : (
           characters.map((character) => (
-            <Character key={character.id} {...character} />
+            <Character
+              key={character.id}
+              {...character}
+              handlerFavorites={handlerFavorites}
+            />
           ))
         )}
       </Row>

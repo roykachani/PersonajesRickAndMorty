@@ -6,6 +6,7 @@ const Search = ({ handlerSearch }) => {
 
   const handlerSubmit = (e) => {
     e.preventDefault();
+    if (state === '') return;
     handlerSearch(state);
   };
 
