@@ -9,23 +9,28 @@ import Footer from './Components/Footer';
 function App() {
   const inicialState = [];
   const [search, setSearch] = useState('');
-  const [favorite, setFavorite] = useState(inicialState);
-  const [showFav, setShowFav] = useState([]);
+  const [favorites, setFavorites] = useState(inicialState);
+
   const handlerSearch = (value) => {
     setSearch(value);
   };
 
   const addFavorites = (character) => {
-    setFavorite([...favorite, character]);
-    checkArray();
+    // setFavorites(
+    //   favorites.filter((fav) =>
+    //     fav.id !== character.id ? [...favorites, character] : null
+    //   )
+    // );
+    // console.log(character.id);
+
+    setFavorites([...favorites, character]);
   };
 
-  const checkArray = () => {
-    favorite.map((fav) =>
-      fav.name === '' ? null : setShowFav([...showFav, fav])
-    );
-    console.log(showFav);
+  const deleteFav = (id) => {
+    setFavorites(favorites.filter((f) => f.id !== id));
   };
+  console.log(favorites);
+
   return (
     <>
       <Container>
@@ -35,7 +40,7 @@ function App() {
             <Characters search={search} addFavorites={addFavorites} />
           </Col>
           <Col>
-            <Favorites favorite={favorite} />
+            <Favorites favorites={favorites} deleteFav={deleteFav} />
           </Col>
         </Row>
       </Container>

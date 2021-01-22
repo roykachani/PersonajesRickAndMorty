@@ -16,7 +16,7 @@ const Characters = ({ search, addFavorites }) => {
   };
 
   const [url, setUrl] = useState(BASE_ENDPOINT);
-  const [favCharacter, setFavCharacter] = useState(inicialState);
+
   //hoock para setear busqueda
   useEffect(() => {
     const newUrl = !search
@@ -33,17 +33,6 @@ const Characters = ({ search, addFavorites }) => {
     setUrl(`${BASE_ENDPOINT}?${newUrl}`);
   };
 
-  const handlerFavorites = (id, name, image) => {
-    setFavCharacter({
-      id: id,
-      name: name,
-      image: image,
-      fav: true,
-    });
-
-    addFavorites(favCharacter);
-  };
-
   return (
     <>
       <Paginate {...info} handlerPage={handlerPage} />
@@ -55,7 +44,7 @@ const Characters = ({ search, addFavorites }) => {
             <Character
               key={character.id}
               {...character}
-              handlerFavorites={handlerFavorites}
+              addFavorites={addFavorites}
             />
           ))
         )}

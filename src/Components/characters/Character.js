@@ -1,4 +1,5 @@
-import { Col, Card, Button } from 'react-bootstrap';
+import { useState } from 'react';
+import { Col, Card } from 'react-bootstrap';
 
 const Character = ({
   id,
@@ -7,11 +8,18 @@ const Character = ({
   species,
   gender,
   image,
-  handlerFavorites,
+  addFavorites,
 }) => {
-  const getFavorite = (e) => {
-    const { id } = e.target;
-    handlerFavorites(id, name, image);
+  const [favCharacter, setFavCharacter] = useState(false);
+
+  const getFavorite = () => {
+    const character = {
+      id,
+      name,
+      image,
+    };
+    setFavCharacter(true);
+    addFavorites(character);
   };
 
   return (
@@ -28,14 +36,21 @@ const Character = ({
             {(status === 'Alive' && <small>Vivo</small>) ||
               (status === 'Dead' && <small>Muerto</small>) ||
               (status === 'unknown' && <small>Desconocido</small>)}
-            <Button
-              type="button"
-              id={id}
-              onClick={getFavorite}
-              className="ml-5"
-            >
-              ***
-            </Button>
+            {!favCharacter ? (
+              <i
+                className="fas fa-heart"
+                style={{ cursor: 'pointer', color: 'red' }}
+                id={id}
+                onClick={getFavorite}
+              ></i>
+            ) : (
+              <i
+                className="fas fa-heart"
+                style={{ cursor: 'pointer', color: 'grey' }}
+                id={id}
+                onClick={getFavorite}
+              ></i>
+            )}
           </Card.Text>
         </Card.Body>
       </Card>
