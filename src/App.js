@@ -16,20 +16,12 @@ function App() {
   };
 
   const addFavorites = (character) => {
-    // setFavorites(
-    //   favorites.filter((fav) =>
-    //     fav.id !== character.id ? [...favorites, character] : null
-    //   )
-    // );
-    // console.log(character.id);
-
     setFavorites([...favorites, character]);
   };
 
   const deleteFav = (id) => {
     setFavorites(favorites.filter((f) => f.id !== id));
   };
-  console.log(favorites);
 
   return (
     <>

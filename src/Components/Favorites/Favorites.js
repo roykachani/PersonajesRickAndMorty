@@ -1,5 +1,4 @@
 import { Row, Col } from 'react-bootstrap';
-import Character from '../characters/Character';
 import Favorite from './Favorite';
 import './Favorites.css';
 

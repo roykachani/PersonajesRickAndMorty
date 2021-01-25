@@ -8,14 +8,10 @@ import Character from './Character';
 //componente de logica (peticion + map)
 const BASE_ENDPOINT = 'character';
 const Characters = ({ search, addFavorites }) => {
-  const inicialState = {
-    id: '',
-    name: '',
-    image: '',
-    fav: false,
-  };
-
   const [url, setUrl] = useState(BASE_ENDPOINT);
+
+  const [data, fetching] = useFetch(url); //CUSTOM HOOK
+  const { info, results: characters } = data;
 
   //hoock para setear busqueda
   useEffect(() => {
@@ -24,9 +20,6 @@ const Characters = ({ search, addFavorites }) => {
       : `${BASE_ENDPOINT}?name=${search}`;
     setUrl(newUrl);
   }, [search]);
-
-  const [data, fetching] = useFetch(url); //CUSTOM HOOK
-  const { info, results: characters } = data;
 
   //funcion de paginacion
   const handlerPage = (newUrl) => {
